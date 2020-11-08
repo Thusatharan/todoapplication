@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Illuminate\Database\Eloquent\Collection;
 use App\Models\Todo;
+use App\Models\User;
 
 
 class TodoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $todos = Todo::orderBy('completed')->get();
@@ -38,9 +45,13 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
+ 
         
+
         $tododata = new Todo;
 
+        $request['user_id'] = auth()->id();
+        $tododata-> user_id = $request['user_id'];
         $tododata-> title = request('todotext');
         $tododata->save();
         // $todo = new Todo;
