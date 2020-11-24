@@ -1,6 +1,6 @@
 
 @if ($todo->completed)
-         <td style="padding-right:15px; color:rgb(20, 255, 12);"> 
+         <td style="padding-right:15px; color:rgb(20, 255, 12); cursor:pointer;"> 
                <span onclick="event.preventDefault();
                      document.getElementById('form-incomplete{{$todo->id}}').submit()" 
                      class="fas fa-check"/>  
@@ -12,7 +12,7 @@
                         </td>
 
          @else
-         <td style="padding-right:15px; color:white;"> 
+         <td style="padding-right:15px; color:white;  cursor:pointer;"> 
                      <span onclick="event.preventDefault();
                            document.getElementById('form-complete{{$todo->id}}').submit()" 
                      class="fas fa-check"/> 

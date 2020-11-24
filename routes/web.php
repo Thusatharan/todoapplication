@@ -27,6 +27,8 @@ Route::get('/', function () {
     Route::delete('/todos/incomplete/{id}', 'App\Http\Controllers\TodoController@incomplete')->name('todo.incomplete');
     Route::delete('todos/delete/{id}', 'App\Http\Controllers\TodoController@delete')->name('todo.delete');
 
+    Route::get('/todos/show/{id}', 'App\Http\Controllers\TodoController@show');
+
 
 Auth::routes();
 

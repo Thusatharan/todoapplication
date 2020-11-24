@@ -17,7 +17,7 @@ class TodoController extends Controller
 
     public function index()
     {
-        $todos = Todo::orderBy('completed')->get();
+        $todos = auth()->user()->todos->sortBy('completed');
         return view('todos.index',compact('todos'));
     }
 
@@ -39,26 +39,30 @@ class TodoController extends Controller
         
         // dd($request->all());
         $todo->update(['title' => $request->todotext]);
+        $todo->update(['description' => $request->descriptionText]);
         
         return redirect(route('todo.index'))->with('message','Updated Successfully');
     }
 
     public function store(Request $request)
     {
- 
-        
-
         $tododata = new Todo;
-
         $request['user_id'] = auth()->id();
         $tododata-> user_id = $request['user_id'];
         $tododata-> title = request('todotext');
+        $tododata-> description = request('descriptionText');
         $tododata->save();
         // $todo = new Todo;
         // $todo-> title = request('todotext');
         // $todo-> save();
 
         return redirect(route('todo.index'))->with('message','Todo Created Successfully');
+    }
+
+    public function show($id)
+    {
+        $todos = Todo::find($id);
+        return view('todos.show',compact('todos'));
     }
 
     public function complete(Request $request, $id)
